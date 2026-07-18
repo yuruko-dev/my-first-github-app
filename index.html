@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI業務自動化ツール | 業務を、AIの力で変える</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-dark:  #0a2a6e;
+      --blue-main:  #1a56db;
+      --blue-mid:   #2d7be5;
+      --blue-light: #e8f0fd;
+      --blue-pale:  #f0f6ff;
+      --white:      #ffffff;
+      --gray-100:   #f8fafc;
+      --gray-300:   #cbd5e1;
+      --gray-600:   #475569;
+      --gray-800:   #1e293b;
+      --radius-lg:  16px;
+      --radius-xl:  24px;
+      --shadow-sm:  0 2px 8px rgba(26,86,219,.08);
+      --shadow-md:  0 8px 32px rgba(26,86,219,.14);
+      --shadow-lg:  0 16px 48px rgba(26,86,219,.20);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-300);
+      padding: 0 5%;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--blue-main); letter-spacing: -.5px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--blue-dark); }
+    nav { display: flex; gap: 28px; }
+    nav a {
+      font-size: .9rem; font-weight: 500;
+      color: var(--gray-600); text-decoration: none;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--blue-main); }
+    .btn-contact-sm {
+      background: var(--blue-main); color: var(--white);
+      border: none; border-radius: 8px;
+      padding: 9px 22px; font-size: .88rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-contact-sm:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-main) 55%, var(--blue-mid) 100%);
+      color: var(--white);
+      padding: 120px 5% 100px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px; padding: 6px 18px;
+      font-size: .82rem; font-weight: 700; letter-spacing: .08em;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900; line-height: 1.2;
+      letter-spacing: -.03em; margin-bottom: 12px;
+    }
+    .hero-title .accent {
+      background: linear-gradient(90deg, #7dd3fc, #a5f3fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-catch {
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+      font-weight: 500; opacity: .9;
+      margin-bottom: 48px; max-width: 580px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--white); color: var(--blue-main);
+      border: none; border-radius: 10px;
+      padding: 16px 36px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      box-shadow: var(--shadow-md);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,.6); border-radius: 10px;
+      padding: 14px 32px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: var(--white); }
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      margin-top: 72px; padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 2.4rem; font-weight: 900; line-height: 1;
+      background: linear-gradient(90deg, #7dd3fc, #a5f3fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: .82rem; opacity: .75; margin-top: 6px; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 96px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      color: var(--blue-main); font-size: .82rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 900; line-height: 1.25; letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 1rem; color: var(--gray-600);
+      max-width: 540px; margin-bottom: 60px;
+    }
+
+    /* ── FEATURES ── */
+    #features { background: var(--gray-100); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .feature-card {
+      background: var(--white); border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(26,86,219,.07);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .feature-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 22px;
+    }
+    .feature-title {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px; color: var(--gray-800);
+    }
+    .feature-desc { font-size: .92rem; color: var(--gray-600); line-height: 1.75; }
+
+    /* ── WORKS ── */
+    #works { background: var(--white); }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .work-card {
+      border: 1px solid var(--gray-300); border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .work-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .work-thumb {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+    }
+    .work-body { padding: 24px; }
+    .work-tag {
+      display: inline-block;
+      background: var(--blue-light); color: var(--blue-main);
+      font-size: .75rem; font-weight: 700; border-radius: 999px;
+      padding: 3px 12px; margin-bottom: 10px;
+    }
+    .work-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .work-desc { font-size: .88rem; color: var(--gray-600); line-height: 1.7; }
+
+    .works-add-note {
+      margin-top: 40px; text-align: center;
+      color: var(--gray-600); font-size: .88rem;
+    }
+    .works-add-note a { color: var(--blue-main); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+      color: var(--white); text-align: center;
+      padding: 120px 5%;
+    }
+    #contact .section-title { color: var(--white); }
+    #contact .section-desc { color: rgba(255,255,255,.8); margin: 0 auto 48px; }
+    .btn-cta {
+      display: inline-block;
+      background: var(--white); color: var(--blue-main);
+      border: none; border-radius: 12px;
+      padding: 20px 56px; font-size: 1.1rem; font-weight: 900;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-cta:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.3); }
+    .contact-note { margin-top: 20px; font-size: .85rem; opacity: .7; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--gray-800); color: rgba(255,255,255,.6);
+      text-align: center; padding: 32px 5%;
+      font-size: .85rem;
+    }
+    footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hero-stats { gap: 32px; }
+      #hero { padding: 80px 5% 72px; }
+      section { padding: 72px 5%; }
+      .features-grid, .works-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#"><span>AI</span>AutoWork</a>
+    <nav>
+      <a href="#features">できること</a>
+      <a href="#works">実績</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+    <a class="btn-contact-sm" href="#contact">無料相談する</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">✦ AI-Powered Business Automation</div>
+    <h1 class="hero-title">
+      業務を、<span class="accent">AIの力</span>で<br>
+      次のステージへ。
+    </h1>
+    <p class="hero-catch">
+      繰り返しの作業を自動化し、チームの生産性を最大化。<br>
+      AIが、あなたのビジネスの強力なパートナーになります。
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">無料で相談する →</a>
+      <a class="btn-outline" href="#features">できることを見る</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">98<small style="font-size:1.2rem">%</small></div>
+        <div class="stat-label">作業時間削減率</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24<small style="font-size:1.2rem">h</small></div>
+        <div class="stat-label">365日稼働</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<small style="font-size:1.2rem">日</small></div>
+        <div class="stat-label">最短導入期間</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50<small style="font-size:1.2rem">+</small></div>
+        <div class="stat-label">対応業務パターン</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <span class="section-label">Features</span>
+    <h2 class="section-title">AIでできること</h2>
+    <p class="section-desc">最新のAI技術を活用して、あなたのビジネスのあらゆる業務を効率化します。</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <div class="feature-title">書類・レポートの自動生成</div>
+        <div class="feature-desc">データを入力するだけで、報告書・提案書・議事録などを自動で生成。ドラフト作成時間をゼロに近づけます。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📧</div>
+        <div class="feature-title">メール・問い合わせ対応の自動化</div>
+        <div class="feature-desc">受信した問い合わせを自動分類し、適切な返信を生成。カスタマーサポートを24時間稼働させます。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">データ分析・インサイト抽出</div>
+        <div class="feature-desc">売上データや顧客データを自動分析し、ビジネスに役立つインサイトをわかりやすくレポートします。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <div class="feature-title">社内ワークフローの自動化</div>
+        <div class="feature-desc">承認フロー・スケジュール調整・進捗管理など、社内の繰り返し業務をAIが代行します。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AIチャットボット導入</div>
+        <div class="feature-desc">自社に最適化したAIチャットボットを構築。社員向けFAQ・営業支援・採用対応など幅広く活用できます。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">既存システムとのAPI連携</div>
+        <div class="feature-desc">Slack・Notion・Salesforce・kintoneなど既存ツールとシームレスに連携し、業務フローに溶け込みます。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="section-inner">
+    <span class="section-label">Works</span>
+    <h2 class="section-title">開発実績</h2>
+    <p class="section-desc">これまでにご支援した業務自動化プロジェクトの一例をご紹介します。</p>
+
+    <div class="works-grid">
+      <div class="work-card">
+        <div class="work-thumb" style="background: linear-gradient(135deg,#e8f0fd,#c7d8fb);">🏢</div>
+        <div class="work-body">
+          <span class="work-tag">製造業</span>
+          <div class="work-title">月次レポート自動生成システム</div>
+          <div class="work-desc">生産データをもとにPDF報告書を自動生成。毎月40時間の工数を削減し、担当者がコア業務に集中できる環境を実現。</div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-thumb" style="background: linear-gradient(135deg,#fce8e8,#fbc7c7);">🛒</div>
+        <div class="work-body">
+          <span class="work-tag">EC・小売</span>
+          <div class="work-title">カスタマーサポートAIボット</div>
+          <div class="work-desc">よくある問い合わせの80%をAIが自動返信。対応スピードが3倍に向上し、顧客満足度スコアが大幅に改善。</div>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-thumb" style="background: linear-gradient(135deg,#e8fce8,#c7fbc7);">💼</div>
+        <div class="work-body">
+          <span class="work-tag">人材・採用</span>
+          <div class="work-title">採用書類スクリーニング自動化</div>
+          <div class="work-desc">応募書類をAIが自動評価・分類。スクリーニング時間を90%短縮し、採用担当者の負担を大幅に軽減。</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="works-add-note">
+      ※ 実績は随時追加予定です。詳細な事例は<a href="#contact">お問い合わせ</a>ください。
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <span class="section-label" style="color:rgba(255,255,255,.7);">Contact</span>
+    <h2 class="section-title">まずは無料でご相談ください</h2>
+    <p class="section-desc">
+      どんな業務が自動化できるか、費用はどのくらいか。<br>
+      まずはお気軽にご相談ください。最短翌日にご回答します。
+    </p>
+    <a class="btn-cta" href="mailto:contact@example.com">お問い合わせする →</a>
+    <p class="contact-note">返信は通常1営業日以内 ・ 完全無料相談</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 AIAutoWork. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
